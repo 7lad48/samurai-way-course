@@ -6,8 +6,8 @@ import Header from './components/Header/Header';
 function App() {
   return (
     <div className="App">
-      <Header title={'HeaderTitle'}/>
-      <Technologies value={'some technologies'} />
+      <Header title={'Header Title'}/>
+      <Technologies value={'some Technologies'} />
     </div>
   );
 }
