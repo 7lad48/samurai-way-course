@@ -1,0 +1,24 @@
+.post{
+    display: flex;
+    align-items: center;
+}
+.post+.post{
+    margin-top: 20px;
+}
+.avatar{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    flex: 0 0 auto;
+    margin-right: 15px;
+    border:1px solid rgba(98, 98, 98, 0.4);
+}
+.message{
+    flex: 1 1 auto;
+}
+.likes{
+    cursor:pointer;
+}
+.likes:hover{
+    opacity: .5;
+}

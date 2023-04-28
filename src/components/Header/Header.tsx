@@ -1,13 +1,14 @@
 import React from "react"
+import styles from './Header.module.css'
+import logo from '../../logo.svg'
 
-type PropsType = {
-    title: string,
-}
-
-export default function Header(props: PropsType){
+export default function Header(){
     return (
-        <h2>
-            {props.title}
-        </h2>
+        <header className={styles.header}>
+            <div className={styles.logo}>
+                <img src={logo} alt="logo" />
+            </div>
+            <div className={styles.text}>Way of the Samurai</div>
+        </header>
     );
 }
