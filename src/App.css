@@ -1,9 +1,9 @@
-body{
+body {
     background: #ededef;
-  }
-  .app-wrapper{
+}
+.app-wrapper {
     max-width: 1150px;
-    margin:0 auto;
+    margin: 0 auto;
     display: grid;
     grid-template-rows: 50px 1fr;
     grid-template-columns: 2fr 10fr;
@@ -12,12 +12,12 @@ body{
     "nav content";
     grid-row-gap: 30px;
     grid-column-gap: 10px;
-  }
+}
 
-  .app-wrapper-content{
+.app-content {
     grid-area: content;
     background: #fff;
     border-radius: 18px;
-    border:1px solid rgba(98, 98, 98, 0.3);
+    border: 1px solid rgba(98, 98, 98, 0.3);
     box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.1);
-  }
+}
