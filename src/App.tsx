@@ -7,7 +7,7 @@ import Messages from "./components/Content/Messages/Messages";
 import Music from "./components/Content/Music/Music";
 import News from "./components/Content/News/News";
 import Settings from "./components/Content/Settings/Settings";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 
 function App():JSX.Element {
     return (
@@ -16,11 +16,13 @@ function App():JSX.Element {
                 <Header/>
                 <Navbar/>
                 <div className='app-content'>
-                    <Route path='/profile' element={<Profile/>}/>
-                    <Route path='/news' element={<News/>}/>
-                    <Route path='/messages' element={<Messages/>}/>
-                    <Route path='/music' element={<Music/>}/>
-                    <Route path='/settings' element={<Settings/>}/>
+                    <Routes>
+                        <Route path='/' element={<Profile/>}/>
+                        <Route path='/news' element={<News/>}/>
+                        <Route path='/messages' element={<Messages/>}/>
+                        <Route path='/music' element={<Music/>}/>
+                        <Route path='/settings' element={<Settings/>}/>
+                    </Routes>
                 </div>
             </div>
         </BrowserRouter>

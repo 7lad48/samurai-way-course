@@ -1,18 +1,20 @@
 import React from "react";
-import posts from "./Posts.module.css"
+import styles from "./Posts.module.css"
 import Post from "./Post/Post";
 import { PostType } from "./Post/Post";
 
 const Posts = () => {
     const postsData: Array<PostType> = [
-        {message: "Message 1 lalala", likesCount: 2},
-        {message: "Message 2", likesCount: 1},
-        {message: "Message 333 tralala", likesCount: 4},
+        {id: '1', message: "Message 1 lalala", likesCount: 2},
+        {id: '2', message: "Message 2 bybyby", likesCount: 11},
+        {id: '3', message: "Message 3 tralala", likesCount: 3},
+        {id: '4', message: "Messagessdada", likesCount: 4},
     ];
+    const posts = postsData.map(post => <Post message={post.message} likesCount={post.likesCount} id={post.id}/>)
     return (
-        <div className={posts.wrapper}>
+        <div className={styles.wrapper}>
 
-            <div className={posts.addRow}>
+            <div className={styles.addRow}>
                 <div>
                     <textarea></textarea>
                 </div>
@@ -20,11 +22,7 @@ const Posts = () => {
                     <button>Добавить</button>
                 </div>
             </div>
-            <div className={posts.postsWrapper}>
-                <Post message={postsData[0].message} likesCount={postsData[0].likesCount}/>
-                <Post message={postsData[1].message} likesCount={postsData[1].likesCount}/>
-                <Post message={postsData[2].message} likesCount={postsData[2].likesCount}/>
-            </div>
+            <div className={styles.postsWrapper}>{posts}</div>
 
         </div>
     );
