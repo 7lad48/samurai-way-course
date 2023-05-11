@@ -16,11 +16,11 @@ function App():JSX.Element {
                 <Header/>
                 <Navbar/>
                 <div className='app-content'>
-                    <Route path='/profile' component={Profile}/>
-                    <Route path='/news' component={News}/>
-                    <Route exact path='/messages' component={Messages}/>
-                    <Route path='/music' component={Music}/>
-                    <Route path='/settings' component={Settings}/>
+                    <Route path='/profile' element={<Profile/>}/>
+                    <Route path='/news' element={<News/>}/>
+                    <Route path='/messages' element={<Messages/>}/>
+                    <Route path='/music' element={<Music/>}/>
+                    <Route path='/settings' element={<Settings/>}/>
                 </div>
             </div>
         </BrowserRouter>
