@@ -10,21 +10,24 @@ import Settings from "./components/Content/Settings/Settings";
 import {Route, Routes} from "react-router-dom";
 import {stateType} from './redux/state'
 
-const App: React.FC<stateType> = (props):JSX.Element=> {
+const App: React.FC<stateType> = ({
+                                      ProfilePosts,
+                                      DialogsPage,
+                                  }): JSX.Element => {
     return (
-            <div className="app-wrapper">
-                <Header/>
-                <Navbar/>
-                <div className='app-content'>
-                    <Routes>
-                        <Route path='/' element={<Profile {...props.ProfilePosts}/>}/>
-                        <Route path='/news' element={<News/>}/>
-                        <Route path='/dialogs' element={<Dialogs {...props.DialogsPage}/>}/>
-                        <Route path='/music' element={<Music/>}/>
-                        <Route path='/settings' element={<Settings/>}/>
-                    </Routes>
-                </div>
+        <div className="app-wrapper">
+            <Header/>
+            <Navbar/>
+            <div className='app-content'>
+                <Routes>
+                    <Route path='/' element={<Profile {...ProfilePosts}/>}/>
+                    <Route path='/news' element={<News/>}/>
+                    <Route path='/dialogs' element={<Dialogs {...DialogsPage}/>}/>
+                    <Route path='/music' element={<Music/>}/>
+                    <Route path='/settings' element={<Settings/>}/>
+                </Routes>
             </div>
+        </div>
     );
 }
 
