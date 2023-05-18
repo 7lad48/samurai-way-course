@@ -1,3 +1,5 @@
+import {rerenderEntireTree} from "../render";
+
 export type stateType = {
     DialogsPage: DialogsPageType
     ProfilePosts: ProfilePostsType
@@ -22,6 +24,9 @@ export type PostType = {
     id: string
     message: string
     likesCount: number
+}
+export type addPost = {
+    addPost: (post:string)=>void
 }
 
 let state: stateType = {
@@ -48,4 +53,14 @@ let state: stateType = {
     },
 }
 
+export const addPost = (post:string)=> {
+    if(post.trim()){
+        const newPost = {
+            id: '11', message: post.trim(), likesCount: 0,
+        };
+        state.ProfilePosts.postsData.unshift(newPost);
+        rerenderEntireTree(state)
+    }
+
+}
 export default state;

@@ -8,11 +8,12 @@ import Music from "./components/Content/Music/Music";
 import News from "./components/Content/News/News";
 import Settings from "./components/Content/Settings/Settings";
 import {Route, Routes} from "react-router-dom";
-import {stateType} from './redux/state'
+import {stateType, addPost} from './redux/state'
 
-const App: React.FC<stateType> = ({
+const App: React.FC<stateType & addPost> = ({
                                       ProfilePosts,
                                       DialogsPage,
+                                      addPost,
                                   }): JSX.Element => {
     return (
         <div className="app-wrapper">
@@ -20,7 +21,7 @@ const App: React.FC<stateType> = ({
             <Navbar/>
             <div className='app-content'>
                 <Routes>
-                    <Route path='/' element={<Profile {...ProfilePosts}/>}/>
+                    <Route path='/' element={<Profile {...ProfilePosts} addPost={addPost}/>}/>
                     <Route path='/news' element={<News/>}/>
                     <Route path='/dialogs' element={<Dialogs {...DialogsPage}/>}/>
                     <Route path='/music' element={<Music/>}/>
