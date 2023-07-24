@@ -8,7 +8,7 @@ const Posts: React.FC<ProfilePostsType & addPost> = ({
                                                 addPost,
                                            }) => {
 
-    const posts = postsData.map(post => <Post message={post.message} likesCount={post.likesCount} id={post.id}/>)
+    const posts = postsData.map(post => <Post message={post.message} likesCount={post.likesCount} id={post.id} key={post.id}/>)
     const newPostElement = useRef<HTMLTextAreaElement>(null);
     const addPostButtonHandler = () => {
         if(newPostElement.current !== null) {

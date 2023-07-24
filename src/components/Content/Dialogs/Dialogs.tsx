@@ -9,8 +9,8 @@ const Dialogs: React.FC<DialogsPageType> = ({
                                                 dialogsMessagesData,
                                             }) => {
 
-    const users = dialogsUsersData.map(user => <DialogItem name={user.name} id={user.id}/>);
-    const messages = dialogsMessagesData.map(message => <Message message={message.message} id={message.id}/>);
+    const users = dialogsUsersData.map(user => <DialogItem name={user.name} id={user.id} key={user.id}/>);
+    const messages = dialogsMessagesData.map(message => <Message message={message.message} id={message.id} key={message.id}/>);
     return (
         <div className={styles.dialogs}>
             <div className={styles.dialogsItems}>{users}</div>
