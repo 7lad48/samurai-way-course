@@ -19,14 +19,18 @@ export type MessagesType = {
 
 export type ProfilePostsType = {
     postsData: PostType[]
+    newPostText: string
 }
 export type PostType = {
     id: string
     message: string
     likesCount: number
 }
-export type addPost = {
-    addPost: (post:string)=>void
+export type addPostType = {
+    addPost: ()=>void
+}
+export type updateNewPostTextType = {
+    updateNewPostText: (newText:string)=>void
 }
 
 let state: stateType = {
@@ -50,17 +54,24 @@ let state: stateType = {
             {id: '3', message: "Message 3 tralala", likesCount: 3},
             {id: '4', message: "Messagessdada", likesCount: 4},
         ],
+        newPostText: 'it-kamasutra',
     },
 }
 
-export const addPost = (post:string)=> {
-    if(post.trim()){
-        const newPost = {
-            id: '11', message: post.trim(), likesCount: 0,
+export const addPost = ()=> {
+    if(state.ProfilePosts.newPostText.trim()){
+        const newPost: PostType = {
+            id: '11', message: state.ProfilePosts.newPostText.trim(), likesCount: 0,
         };
         state.ProfilePosts.postsData.unshift(newPost);
-        rerenderEntireTree(state)
+       // updateNewPostText('')
+        state.ProfilePosts.newPostText = '';
+        rerenderEntireTree(state);
     }
 
+}
+export const updateNewPostText = (newText:string)=> {
+    state.ProfilePosts.newPostText = newText;
+    rerenderEntireTree(state);
 }
 export default state;
