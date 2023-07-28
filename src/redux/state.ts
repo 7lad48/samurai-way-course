@@ -1,4 +1,4 @@
-import {rerenderEntireTree} from "../render";
+import {v1} from "uuid";
 
 export type stateType = {
     DialogsPage: DialogsPageType
@@ -32,46 +32,63 @@ export type addPostType = {
 export type updateNewPostTextType = {
     updateNewPostText: (newText:string)=>void
 }
-
-let state: stateType = {
-    DialogsPage: {
-         dialogsUsersData: [
-            {id: 1, name: 'Dimychs'},
-            {id: 2, name: 'Valera'},
-            {id: 3, name: 'Vasya'},
-        ],
-        dialogsMessagesData: [
-            {id: 1, message: 'Hi'},
-            {id: 2, message: 'Yo'},
-            {id: 3, message: 'Yo-yo'},
-            {id: 4, message: 'Hi-hi'},
-        ],
-    },
-    ProfilePosts: {
-        postsData: [
-            {id: '1', message: "Message adad1 lalala", likesCount: 3},
-            {id: '2', message: "Message 2 bybyby", likesCount: 11},
-            {id: '3', message: "Message 3 tralala", likesCount: 3},
-            {id: '4', message: "Messagessdada", likesCount: 4},
-        ],
-        newPostText: 'it-kamasutra',
-    },
+export type StoreType = {
+    _state: stateType
+    _callSubscriber: (state: stateType)=>void
+    getState: ()=> stateType
+    addPost: ()=> void
+    subscribe: (observer:(state: stateType)=>void) => void
+    updateNewPostText: (newText: string)=>void
 }
-
-export const addPost = ()=> {
-    if(state.ProfilePosts.newPostText.trim()){
-        const newPost: PostType = {
-            id: '11', message: state.ProfilePosts.newPostText.trim(), likesCount: 0,
-        };
-        state.ProfilePosts.postsData.unshift(newPost);
-       // updateNewPostText('')
-        state.ProfilePosts.newPostText = '';
-        rerenderEntireTree(state);
+const store: StoreType = {
+    _state: {
+        DialogsPage: {
+            dialogsUsersData: [
+                {id: 1, name: 'Dimychs'},
+                {id: 2, name: 'Valera'},
+                {id: 3, name: 'Vasya'},
+            ],
+            dialogsMessagesData: [
+                {id: 1, message: 'Hi'},
+                {id: 2, message: 'Yo'},
+                {id: 3, message: 'Yo-yo'},
+                {id: 4, message: 'Hi-hi'},
+            ],
+        },
+        ProfilePosts: {
+            postsData: [
+                {id: '1', message: "Message adad1 lalala", likesCount: 3},
+                {id: '2', message: "Message 2 bybyby", likesCount: 11},
+                {id: '3', message: "Message 3 tralala", likesCount: 3},
+                {id: '4', message: "Messagessdada", likesCount: 4},
+            ],
+            newPostText: '',
+        },
+    },
+    _callSubscriber() {
+        console.log('subscriber isn\'t defined');
+    },
+    getState() {
+        return this._state;
+    },
+    addPost() {
+        if(this._state.ProfilePosts.newPostText.trim()){
+            const newPost: PostType = {
+                id: v1(), message: this._state.ProfilePosts.newPostText.trim(), likesCount: 0,
+            };
+            this._state.ProfilePosts.postsData.unshift(newPost);
+            this._state.ProfilePosts.newPostText = '';
+            this._callSubscriber(this._state);
+        }
+    },
+    subscribe(observer) {
+        this._callSubscriber = observer
+    },
+    updateNewPostText (newText) {
+        this._state.ProfilePosts.newPostText = newText;
+        this._callSubscriber(this._state);
     }
+}
 
-}
-export const updateNewPostText = (newText:string)=> {
-    state.ProfilePosts.newPostText = newText;
-    rerenderEntireTree(state);
-}
-export default state;
+
+export default store;
