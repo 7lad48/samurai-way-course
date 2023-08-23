@@ -26,19 +26,26 @@ export type PostType = {
     message: string
     likesCount: number
 }
-export type addPostType = {
-    addPost: ()=>void
-}
-export type updateNewPostTextType = {
-    updateNewPostText: (newText:string)=>void
+// export type addPostType = {
+//     addPost: ()=>void
+// }
+// export type updateNewPostTextType = {
+//     updateNewPostText: (newText:string)=>void
+// }
+export type ActionsType = ReturnType<typeof addPostAC>
+    | ReturnType<typeof updateNewPostTextAC>
+;
+export type dispatchType = {
+    dispatch: (action:ActionsType)=>void
 }
 export type StoreType = {
     _state: stateType
     _callSubscriber: (state: stateType)=>void
     getState: ()=> stateType
-    addPost: ()=> void
     subscribe: (observer:(state: stateType)=>void) => void
-    updateNewPostText: (newText: string)=>void
+    // addPost: ()=> void
+    // updateNewPostText: (newText: string)=>void
+    dispatch: (action:ActionsType)=>void
 }
 const store: StoreType = {
     _state: {
@@ -71,24 +78,47 @@ const store: StoreType = {
     getState() {
         return this._state;
     },
-    addPost() {
-        if(this._state.ProfilePosts.newPostText.trim()){
-            const newPost: PostType = {
-                id: v1(), message: this._state.ProfilePosts.newPostText.trim(), likesCount: 0,
-            };
-            this._state.ProfilePosts.postsData.unshift(newPost);
-            this._state.ProfilePosts.newPostText = '';
-            this._callSubscriber(this._state);
-        }
-    },
     subscribe(observer) {
         this._callSubscriber = observer
     },
-    updateNewPostText (newText) {
-        this._state.ProfilePosts.newPostText = newText;
-        this._callSubscriber(this._state);
+    dispatch(action) {
+        switch(action.type){
+            case 'ADD-POST': {
+                if(this._state.ProfilePosts.newPostText.trim()){
+                    const newPost: PostType = {
+                        id: v1(), message: this._state.ProfilePosts.newPostText.trim(), likesCount: 0,
+                    };
+                    this._state.ProfilePosts.postsData.unshift(newPost);
+                    this._state.ProfilePosts.newPostText = '';
+                    this._callSubscriber(this._state);
+                }
+                break;
+            }
+            case 'UPDATE-NEW-POST-TEXT': {
+                this._state.ProfilePosts.newPostText = action.newText;
+                this._callSubscriber(this._state);
+                break;
+            }
+
+        }
     }
+    // addPost() {
+    //     if(this._state.ProfilePosts.newPostText.trim()){
+    //         const newPost: PostType = {
+    //             id: v1(), message: this._state.ProfilePosts.newPostText.trim(), likesCount: 0,
+    //         };
+    //         this._state.ProfilePosts.postsData.unshift(newPost);
+    //         this._state.ProfilePosts.newPostText = '';
+    //         this._callSubscriber(this._state);
+    //     }
+    // },
+    // updateNewPostText (newText) {
+    //     this._state.ProfilePosts.newPostText = newText;
+    //     this._callSubscriber(this._state);
+    // }
 }
 
+export const addPostAC = () => ({type: 'ADD-POST'}) as const;
+export const updateNewPostTextAC = (text: string) => ({type: 'UPDATE-NEW-POST-TEXT', newText: text}) as const;
 
 export default store;

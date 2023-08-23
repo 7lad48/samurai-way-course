@@ -1,30 +1,30 @@
-import React, {ChangeEvent, RefObject, useRef} from "react";
+import React, {ChangeEvent} from "react";
 import styles from "./Posts.module.css"
 import Post from "./Post/Post";
-import {ProfilePostsType, addPostType, updateNewPostTextType} from "../../../../redux/state";
+import {ProfilePostsType, dispatchType, addPostAC, updateNewPostTextAC} from "../../../../redux/state";
 
-const Posts: React.FC<ProfilePostsType & addPostType & updateNewPostTextType> = ({
+const Posts: React.FC<ProfilePostsType & dispatchType> = ({
                                                                                      postsData,
                                                                                      newPostText,
-                                                                                     addPost,
-                                                                                     updateNewPostText,
+                                                                                     dispatch,
                                                                                  }) => {
 
     const posts = postsData.map(post => <Post message={post.message} likesCount={post.likesCount} id={post.id}
                                               key={post.id}/>)
 
     const addPostButtonHandler = () => {
-            addPost();
+            dispatch(addPostAC());
     }
-    const onChahngePost = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        updateNewPostText(e.currentTarget.value);
+    const onChangePost = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        //updateNewPostText(e.currentTarget.value);
+        dispatch(updateNewPostTextAC(e.currentTarget.value));
     }
     return (
         <div className={styles.wrapper}>
 
             <div className={styles.addRow}>
                 <div>
-                    <textarea value={newPostText} onChange={onChahngePost}/>
+                    <textarea value={newPostText} onChange={onChangePost}/>
                 </div>
                 <div>
                     <button onClick={addPostButtonHandler}>Добавить</button>
