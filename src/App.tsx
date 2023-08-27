@@ -25,7 +25,7 @@ const App: React.FC<stateType & dispatchType> = ({
                     <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
                     <Route path='/profile' element={<Profile {...ProfilePosts} dispatch={dispatch}/>}/>
                     <Route path='/news' element={<News/>}/>
-                    <Route path='/dialogs' element={<Dialogs {...DialogsPage}/>}/>
+                    <Route path='/dialogs' element={<Dialogs {...DialogsPage} dispatch={dispatch}/>}/>
                     <Route path='/music' element={<Music/>}/>
                     <Route path='/settings' element={<Settings/>}/>
                     <Route path='/*' element={<Error404/>}/>

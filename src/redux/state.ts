@@ -7,6 +7,7 @@ export type stateType = {
 export type DialogsPageType = {
     dialogsUsersData: UsersType[]
     dialogsMessagesData: MessagesType[]
+    typedMessage: string
 }
 export type UsersType = {
     id: number
@@ -34,6 +35,8 @@ export type PostType = {
 // }
 export type ActionsType = ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof updateTypedDialogTextAC>
+    | ReturnType<typeof sendTypedDialogMsgAC>
 ;
 export type dispatchType = {
     dispatch: (action:ActionsType)=>void
@@ -61,6 +64,7 @@ const store: StoreType = {
                 {id: 3, message: 'Yo-yo'},
                 {id: 4, message: 'Hi-hi'},
             ],
+            typedMessage: '',
         },
         ProfilePosts: {
             postsData: [
@@ -99,7 +103,18 @@ const store: StoreType = {
                 this._callSubscriber(this._state);
                 break;
             }
-
+            case 'UPDATE-TYPED-DIALOG-TEXT': {
+                this._state.DialogsPage.typedMessage = action.text;
+                this._callSubscriber(this._state);
+                break;
+            }
+            case 'SEND-TYPED-DIALOG-MSG':{
+                const newMsg: MessagesType = {id: 65, message: this._state.DialogsPage.typedMessage};
+                this._state.DialogsPage.dialogsMessagesData = [...this._state.DialogsPage.dialogsMessagesData, newMsg];
+                this._state.DialogsPage.typedMessage = '';
+                this._callSubscriber(this._state);
+                break;
+            }
         }
     }
     // addPost() {
@@ -120,5 +135,7 @@ const store: StoreType = {
 
 export const addPostAC = () => ({type: 'ADD-POST'}) as const;
 export const updateNewPostTextAC = (text: string) => ({type: 'UPDATE-NEW-POST-TEXT', newText: text}) as const;
+export const updateTypedDialogTextAC = (text: string) => ({type: 'UPDATE-TYPED-DIALOG-TEXT', text: text}) as const;
+export const sendTypedDialogMsgAC = () => ({type: 'SEND-TYPED-DIALOG-MSG'}) as const;
 
 export default store;
