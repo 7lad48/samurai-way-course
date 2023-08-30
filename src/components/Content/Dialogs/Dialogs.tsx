@@ -2,7 +2,8 @@ import React, {ChangeEvent} from 'react';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import styles from './Dialogs.module.css'
-import {DialogsPageType, dispatchType, sendTypedDialogMsgAC, updateTypedDialogTextAC} from '../../../redux/state'
+import {DialogsPageType, dispatchType} from '../../../redux/state'
+import {sendTypedDialogMsgAC, updateTypedDialogTextAC} from "../../../redux/dialogsReducer";
 
 const Dialogs: React.FC<DialogsPageType & dispatchType> = ({
                                                                dialogsUsersData,

@@ -1,7 +1,8 @@
 import React, {ChangeEvent} from "react";
 import styles from "./Posts.module.css"
 import Post from "./Post/Post";
-import {ProfilePostsType, dispatchType, addPostAC, updateNewPostTextAC} from "../../../../redux/state";
+import {ProfilePostsType, dispatchType} from "../../../../redux/state";
+import {addPostAC, updateNewPostTextAC} from "../../../../redux/profileReducer";
 
 const Posts: React.FC<ProfilePostsType & dispatchType> = ({
                                                                                      postsData,
