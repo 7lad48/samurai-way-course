@@ -10,13 +10,13 @@ export type MessagesType = {
     message: string
 }
 
-export type DialogsPageType = {
+export type DialogsPageContainerType = {
     dialogsUsersData: UsersType[]
     dialogsMessagesData: MessagesType[]
     typedMessage: string
 }
 
-const InitialState: DialogsPageType = {
+const InitialState: DialogsPageContainerType = {
     dialogsUsersData: [
         {id: 1, name: 'Dimychs'},
         {id: 2, name: 'Valera'},
@@ -31,7 +31,7 @@ const InitialState: DialogsPageType = {
         typedMessage: '',
 }
 
-export const dialogsReducer = (state:DialogsPageType = InitialState, action: dialogsReducerActionsType): DialogsPageType => {
+export const dialogsReducer = (state:DialogsPageContainerType = InitialState, action: dialogsReducerActionsType): DialogsPageContainerType => {
     switch(action.type){
         case 'UPDATE-TYPED-DIALOG-TEXT': {
             state.typedMessage = action.text;

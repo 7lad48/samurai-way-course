@@ -10,12 +10,12 @@ export type PostType = {
     likesCount: number
 }
 
-export type ProfilePostsType = {
+export type ProfilePostsContainerType = {
     postsData: PostType[]
     newPostText: string
 }
 
-const InitialState: ProfilePostsType = {
+const InitialState: ProfilePostsContainerType = {
     postsData: [
         {id: '1', message: "Message adad1 lalala", likesCount: 3},
         {id: '2', message: "Message 2 bybyby", likesCount: 11},
@@ -25,7 +25,7 @@ const InitialState: ProfilePostsType = {
         newPostText: '',
 }
 
-export const profileReducer = (state:ProfilePostsType = InitialState, action: profileReducerActionsType): ProfilePostsType => {
+export const profileReducer = (state:ProfilePostsContainerType = InitialState, action: profileReducerActionsType): ProfilePostsContainerType => {
     switch(action.type){
         case 'ADD-POST': {
             if(state.newPostText.trim()){

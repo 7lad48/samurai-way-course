@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {addPostAC, profileReducer, updateNewPostTextAC} from "./profileReducer";
+import {addPostAC, ProfilePostsContainerType, profileReducer, updateNewPostTextAC} from "./profileReducer";
 import {
     dialogsReducer,
     sendTypedDialogMsgAC,
@@ -8,7 +8,7 @@ import {
 
 export type stateType = {
     DialogsPage: DialogsPageType
-    ProfilePosts: ProfilePostsType
+    ProfilePosts: ProfilePostsContainerType
     sidebar: object
 }
 export type DialogsPageType = {
@@ -25,10 +25,7 @@ export type MessagesType = {
     message: string
 }
 
-export type ProfilePostsType = {
-    postsData: PostType[]
-    newPostText: string
-}
+
 export type PostType = {
     id: string
     message: string

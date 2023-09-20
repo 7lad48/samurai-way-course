@@ -1,14 +1,15 @@
 import React from "react";
 import styles from './Profile.module.css'
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import Posts from "./Posts/Posts";
-import {dispatchType, ProfilePostsType} from "../../../redux/state";
+import {dispatchType} from "../../../redux/state";
+import PostsContainer from "./Posts/PostsContainer";
+import {ProfilePostsContainerType} from "../../../redux/profileReducer";
 
-const Profile: React.FC<ProfilePostsType & dispatchType> = (props) => {
+const Profile: React.FC<ProfilePostsContainerType & dispatchType> = (props) => {
     return (
         <section className={styles.profile}>
             <ProfileInfo />
-            <Posts {...props}/>
+            <PostsContainer {...props}/>
         </section>
     );
 }
