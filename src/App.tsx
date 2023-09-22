@@ -7,15 +7,10 @@ import Music from "./components/Content/Music/Music";
 import News from "./components/Content/News/News";
 import Settings from "./components/Content/Settings/Settings";
 import {Navigate, Route, Routes} from "react-router-dom";
-import {dispatchType, stateType} from './redux/state'
 import {Error404} from "./components/Error404";
 import DialogsContainer from "./components/Content/Dialogs/DialogsContainer";
 
-const App: React.FC<stateType & dispatchType> = ({
-                                                                            ProfilePosts,
-                                                                            DialogsPage,
-                                                                            dispatch,
-                                                                        }): JSX.Element => {
+const App = (): JSX.Element => {
     return (
         <div className="app-wrapper">
             <Header/>
@@ -23,9 +18,9 @@ const App: React.FC<stateType & dispatchType> = ({
             <div className='app-content'>
                 <Routes>
                     <Route path={'/'} element={<Navigate to={'/profile'}/>}/>
-                    <Route path='/profile' element={<Profile {...ProfilePosts} dispatch={dispatch}/>}/>
+                    <Route path='/profile' element={<Profile/>}/>
                     <Route path='/news' element={<News/>}/>
-                    <Route path='/dialogs' element={<DialogsContainer {...DialogsPage} dispatch={dispatch}/>}/>
+                    <Route path='/dialogs' element={<DialogsContainer/>}/>
                     <Route path='/music' element={<Music/>}/>
                     <Route path='/settings' element={<Settings/>}/>
                     <Route path='/*' element={<Error404/>}/>

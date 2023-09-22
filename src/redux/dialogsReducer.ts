@@ -1,20 +1,24 @@
+import {v1} from "uuid";
+
 export type dialogsReducerActionsType = ReturnType<typeof updateTypedDialogTextAC>
     | ReturnType<typeof sendTypedDialogMsgAC>;
 
-export type UsersType = {
+export type UserType = {
     id: number
     name: string
 }
 export type MessagesType = {
-    id: number
+    id: string
     message: string
 }
 
 export type DialogsPageContainerType = {
-    dialogsUsersData: UsersType[]
+    dialogsUsersData: UserType[]
     dialogsMessagesData: MessagesType[]
     typedMessage: string
 }
+//
+// export type DialogsPageContainerType = typeof InitialState;
 
 const InitialState: DialogsPageContainerType = {
     dialogsUsersData: [
@@ -23,10 +27,10 @@ const InitialState: DialogsPageContainerType = {
         {id: 3, name: 'Vasya'},
     ],
         dialogsMessagesData: [
-        {id: 1, message: 'Hi'},
-        {id: 2, message: 'Yo'},
-        {id: 3, message: 'Yo-yo'},
-        {id: 4, message: 'Hi-hi'},
+        {id: '1', message: 'Hi'},
+        {id: '2', message: 'Yo'},
+        {id: '3', message: 'Yo-yo'},
+        {id: '4', message: 'Hi-hi'},
     ],
         typedMessage: '',
 }
@@ -34,14 +38,16 @@ const InitialState: DialogsPageContainerType = {
 export const dialogsReducer = (state:DialogsPageContainerType = InitialState, action: dialogsReducerActionsType): DialogsPageContainerType => {
     switch(action.type){
         case 'UPDATE-TYPED-DIALOG-TEXT': {
-            state.typedMessage = action.text;
-            return state;
+            return {...state, typedMessage: action.text};
+            // state.typedMessage = action.text;
+            // return state;
         }
         case 'SEND-TYPED-DIALOG-MSG':{
-            const newMsg: MessagesType = {id: 65, message: state.typedMessage};
-            state.dialogsMessagesData = [...state.dialogsMessagesData, newMsg];
-            state.typedMessage = '';
-            return state;
+             const newMsg: MessagesType = {id: v1(), message: state.typedMessage};
+            // state.dialogsMessagesData = [...state.dialogsMessagesData, newMsg];
+            // state.typedMessage = '';
+            // return state;
+            return {...state, dialogsMessagesData: [...state.dialogsMessagesData, newMsg], typedMessage: ''}
         }
         default: return state;
     }

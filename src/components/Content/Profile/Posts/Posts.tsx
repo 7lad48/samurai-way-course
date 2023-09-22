@@ -1,22 +1,14 @@
 import React, {ChangeEvent} from "react";
 import styles from "./Posts.module.css"
-import {PostType} from "../../../../redux/profileReducer";
 import Post from "./Post/Post";
+import {PostsTypes} from "./PostsContainer";
 
-type ProfilePostsType = {
-    postsData: PostType[]
-    addPostButtonHandler: () => void
-    onChangePost: (text: string) => void
-    newPostText: string
-}
-
-const Posts: React.FC<ProfilePostsType> = ({
-                                               postsData,
-                                               addPostButtonHandler,
-                                               onChangePost,
-                                               newPostText
+const Posts: React.FC<PostsTypes> = ({
+                                         profilePage,
+                                         addPostButtonHandler,
+                                         onChangePost
                                            }) => {
-    const posts = postsData.map(post => <Post message={post.message} likesCount={post.likesCount} id={post.id}
+    const posts = profilePage.postsData.map(post => <Post message={post.message} likesCount={post.likesCount} id={post.id}
                                               key={post.id}/>)
     const onChangePostHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         onChangePost(e.currentTarget.value)
@@ -26,7 +18,7 @@ const Posts: React.FC<ProfilePostsType> = ({
 
             <div className={styles.addRow}>
                 <div>
-                    <textarea value={newPostText} onChange={onChangePostHandler}/>
+                    <textarea value={profilePage.newPostText} onChange={onChangePostHandler}/>
                 </div>
                 <div>
                     <button onClick={addPostButtonHandler}>Добавить</button>
