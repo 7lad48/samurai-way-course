@@ -1,0 +1,33 @@
+.usersContainer{
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+
+}
+.user:not(:first-child) {
+    margin-top: 15px;
+}
+.user{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border: 2px solid gray;
+    border-radius: 18px;
+}
+.userPhoto{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.userName{
+    font-size: 18px;
+    font-weight: bold;
+}
+button {
+    font-size: 20px;
+    background-color: greenyellow;
+    outline: none;
+    border: 1px solid gray;
+    border-radius: 5px;
+}

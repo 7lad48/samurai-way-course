@@ -27,22 +27,12 @@ const InitialState: ProfilePostsContainerType = {
 export const profileReducer = (state:ProfilePostsContainerType = InitialState, action: profileReducerActionsType): ProfilePostsContainerType => {
     switch(action.type){
         case 'ADD-POST': {
-            // if(state.newPostText.trim()){
-            //     const newPost: PostType = {
-            //         id: v1(), message: state.newPostText.trim(), likesCount: 0,
-            //     };
-            //     state.postsData = [newPost, ...state.postsData];
-            //     state.newPostText = '';
-            // }
-            // return state;
             const newPost: PostType | undefined = state.newPostText.trim()
                 ? {id: v1(), message: state.newPostText.trim(), likesCount: 0,}
                 : undefined;
             return newPost ? {...state, postsData: [newPost,...state.postsData], newPostText: ''} : state;
         }
         case 'UPDATE-NEW-POST-TEXT': {
-            // state.newPostText = action.newText;
-            // return state;
             return {...state, newPostText: action.newText}
         }
         default: return state;

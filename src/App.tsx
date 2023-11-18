@@ -9,6 +9,7 @@ import Settings from "./components/Content/Settings/Settings";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {Error404} from "./components/Error404";
 import DialogsContainer from "./components/Content/Dialogs/DialogsContainer";
+import UsersContainer from "./components/Content/Users/UsersContainer";
 
 const App = (): JSX.Element => {
     return (
@@ -22,6 +23,7 @@ const App = (): JSX.Element => {
                     <Route path='/news' element={<News/>}/>
                     <Route path='/dialogs' element={<DialogsContainer/>}/>
                     <Route path='/music' element={<Music/>}/>
+                    <Route path='/users' element={<UsersContainer/>}/>
                     <Route path='/settings' element={<Settings/>}/>
                     <Route path='/*' element={<Error404/>}/>
                     {/*<Route path={'/dialogs/:id'} element={<Page pages={dataState.pages}/>}/>*/}
