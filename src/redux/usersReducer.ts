@@ -2,20 +2,31 @@ export type UsersActionsType = ReturnType<typeof followAC>
     | ReturnType<typeof unfollowAC>
     | ReturnType<typeof setUsersAC>;
 
+// export type UserType = {
+//     id: number
+//     photo: string
+//     followed: boolean
+//     firstName: string
+//     status: string
+//     location: LocationType
+// }
+// export type LocationType = {
+//     city: string
+//     country: string
+// }
+
 export type UserType = {
-    id: string
-    photo: string
+    name: string
+    id: number
+    uniqueUrlName: string | null
+    photos: UserPhotoType
+    status: string | null
     followed: boolean
-    firstName: string
-    status: string
-    location: LocationType
 }
-
-export type LocationType = {
-    city: string
-    country: string
+export type UserPhotoType = {
+    small: string | null
+    large: string | null
 }
-
 export type UsersContainerType = {
     users: UserType[]
 
@@ -40,6 +51,6 @@ export const usersReducer = (state:UsersContainerType = InitialState, action: Us
     }
 }
 
-export const followAC = (userId: string) => ({type: 'FOLLOW', userId}) as const;
-export const unfollowAC = (userId: string) => ({type: 'UNFOLLOW', userId}) as const;
+export const followAC = (userId: number) => ({type: 'FOLLOW', userId}) as const;
+export const unfollowAC = (userId: number) => ({type: 'UNFOLLOW', userId}) as const;
 export const setUsersAC = (users: UserType[]) => ({type: 'SET-USERS', users}) as const;
