@@ -1,5 +1,5 @@
 //import {DialogsPageContainerType, sendTypedDialogMsgAC, updateTypedDialogTextAC} from "../../../redux/dialogsReducer";
-import {Users} from "./Users";
+import {UsersC} from "./UsersC";
 import {connect} from "react-redux";
 import {RootStateType} from "../../../redux/store";
 import {Dispatch} from "redux";
@@ -35,6 +35,6 @@ const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
         },
     }
 }
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
+const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersC)
 
 export default UsersContainer;

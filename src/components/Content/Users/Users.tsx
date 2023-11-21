@@ -6,13 +6,15 @@ import axios from "axios";
 
 export const Users: React.FC<UsersPropsTypes> = ({users,
                                                  ...rest}) => {
-    if(users.length === 0){
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-            rest.setUsers(response.data.items)
-        })
+    const loadUsers = () => {
+        if(users.length === 0){
+            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+                rest.setUsers(response.data.items)
+            })
+        }
     }
-
     return <div className={styles.usersContainer}>
+        <button onClick={loadUsers}>show</button>
     {users.map(user => <div key={user.id} className={styles.user}>
         <div>
             <div>
