@@ -5,8 +5,10 @@ import noAvatar from '../../../assets/images/noavatar.png'
 import axios from "axios";
 
 export class UsersC extends React.Component<UsersPropsTypes> {
-    constructor(props: UsersPropsTypes) {
-        super(props);
+    // constructor(props: UsersPropsTypes) {
+    //     super(props);
+    // }
+    componentDidMount() {
         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
             this.props.setUsers(response.data.items)
         })
