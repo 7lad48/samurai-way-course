@@ -24,6 +24,15 @@
     font-size: 18px;
     font-weight: bold;
 }
+.pageNumber:not(:last-child){
+    margin-right: 10px;
+}
+.pageNumber{
+    cursor: pointer;
+}
+.selectedPage {
+    font-weight: bold;
+}
 button {
     font-size: 20px;
     background-color: greenyellow;
