@@ -1,38 +1,49 @@
-import React from 'react';
-import {UsersPropsTypes} from "./UsersContainer";
-import styles from './Users.module.css'
-import noAvatar from '../../../assets/images/noavatar.png'
-import axios from "axios";
+import React from "react";
+import styles from "./Users.module.css";
+import noAvatar from "../../../assets/images/noavatar.png";
+import {UserType} from "../../../redux/usersReducer";
 
-export const Users: React.FC<UsersPropsTypes> = ({users,
-                                                 ...rest}) => {
-    const loadUsers = () => {
-        if(users.length === 0){
-            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                rest.setUsers(response.data.items)
-            })
-        }
+
+export const Users = (props: any) => {
+    let pagesCount = Math.ceil(props.totalCount / props.pageSize)
+    let pages = [];
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
     return <div className={styles.usersContainer}>
-        <button onClick={loadUsers}>show</button>
-    {users.map(user => <div key={user.id} className={styles.user}>
         <div>
+            {pages.map(p => {
+                const setPage = () => {
+                    props.onPageChanged(p)
+                }
+                return <span key={p}
+                             className={props.currentPage === p ? `${styles.selectedPage} ${styles.pageNumber}` : styles.pageNumber}
+                             onClick={setPage}>{p}</span>
+            })}
+        </div>
+        {props.users.map((user: UserType) => <div key={user.id} className={styles.user}>
             <div>
-                <img src={user.photos.small ? user.photos.small : noAvatar} alt='user photo' className={styles.userPhoto}/>
-                <div className={styles.userName}>{user.name}</div>
+                <div>
+                    <img src={user.photos.small ? user.photos.small : noAvatar} alt='user photo'
+                         className={styles.userPhoto}/>
+                    <div className={styles.userName}>{user.name}</div>
+                </div>
+                {user.followed
+                    ? <button onClick={() => {
+                        props.unfollow(user.id)
+                    }}>unfollow</button>
+                    : <button onClick={() => {
+                        props.follow(user.id)
+                    }}>follow</button>
+                }
             </div>
-            {user.followed
-                ? <button onClick={() => {rest.unfollow(user.id)}}>unfollow</button>
-                : <button onClick={() => {rest.follow(user.id)}}>follow</button>
-            }
-        </div>
-        <div>
-            {user.status}
-        </div>
-        <div>
-            {/*<div>{user.location.city}</div>*/}
-            {/*<div>{user.location.country}</div>*/}
-        </div>
-    </div>)}
+            <div>
+                {user.status}
+            </div>
+            <div>
+                {/*<div>{user.location.city}</div>*/}
+                {/*<div>{user.location.country}</div>*/}
+            </div>
+        </div>)}
     </div>
 }
