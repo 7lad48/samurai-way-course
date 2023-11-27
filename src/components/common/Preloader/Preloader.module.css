@@ -1,12 +1,13 @@
 .preloaderWrapper{
     position: relative;
+    height: 100%;
 }
 .preloaderImageWrapper{
-
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 .preloaderImg{
-    max-width: 100px;
-}
-img{
-    max-width: 100px;
+    max-width: 70px;
 }
