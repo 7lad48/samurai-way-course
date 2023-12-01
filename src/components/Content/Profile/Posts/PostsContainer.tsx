@@ -18,15 +18,19 @@ const mapStateToProps = (state: RootStateType): mapStateToPropsType => {
         profilePage: state.profile
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
-    return {
-        addPostButtonHandler: () => {
-        dispatch(addPostAC());
-        },
-        onChangePost: (text: string) => {
-        dispatch(updateNewPostTextAC(text));
-        },
-    }
+// const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
+//     return {
+//         addPostButtonHandler: () => {
+//         dispatch(addPostAC());
+//         },
+//         onChangePost: (text: string) => {
+//         dispatch(updateNewPostTextAC(text));
+//         },
+//     }
+// }
+const actionCreators = {
+        addPostButtonHandler: addPostAC,
+        onChangePost: updateNewPostTextAC,
 }
-const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(Posts);
+const PostsContainer = connect(mapStateToProps, actionCreators)(Posts);
 export default PostsContainer;

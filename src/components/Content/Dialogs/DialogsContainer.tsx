@@ -19,16 +19,20 @@ const mapStateToProps = (state: RootStateType): mapStateToPropsType => {
         dialogsPage: state.dialogs,
     }
 }
-const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
-    return {
-        onChangeMessage: (newMessage: string) => {
-        dispatch(updateTypedDialogTextAC(newMessage));
-        },
-        onClickSendTypedMsg: () => {
-        dispatch(sendTypedDialogMsgAC());
-        },
-    }
+// const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
+//     return {
+//         onChangeMessage: (newMessage: string) => {
+//         dispatch(updateTypedDialogTextAC(newMessage));
+//         },
+//         onClickSendTypedMsg: () => {
+//         dispatch(sendTypedDialogMsgAC());
+//         },
+//     }
+// }
+const actionCreators = {
+        onChangeMessage: updateTypedDialogTextAC,
+        onClickSendTypedMsg: sendTypedDialogMsgAC,
 }
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+const DialogsContainer = connect(mapStateToProps, actionCreators)(Dialogs)
 
 export default DialogsContainer;
