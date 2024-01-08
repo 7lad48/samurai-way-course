@@ -72,6 +72,7 @@ const store: StoreType = {
             ],
             typedMessage: '',
         },
+        //@ts-ignore
         ProfilePosts: {
             postsData: [
                 {id: '1', message: "Message adad1 lalala", likesCount: 3},

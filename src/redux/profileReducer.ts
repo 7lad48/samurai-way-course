@@ -1,7 +1,8 @@
 import {v1} from "uuid";
 
 export type profileReducerActionsType = ReturnType<typeof addPostAC>
-    | ReturnType<typeof updateNewPostTextAC>;
+    | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof setUserProfile>;
 
 export type PostType = {
     id: string
@@ -12,6 +13,7 @@ export type PostType = {
 export type ProfilePostsContainerType = {
     postsData: PostType[]
     newPostText: string
+    profile: null | object
 }
 
 const InitialState: ProfilePostsContainerType = {
@@ -21,7 +23,8 @@ const InitialState: ProfilePostsContainerType = {
         {id: '3', message: "Message 3 tralala", likesCount: 3},
         {id: '4', message: "Messagessdada", likesCount: 4},
     ],
-        newPostText: '',
+    newPostText: '',
+    profile: null
 }
 
 export const profileReducer = (state:ProfilePostsContainerType = InitialState, action: profileReducerActionsType): ProfilePostsContainerType => {
@@ -35,9 +38,13 @@ export const profileReducer = (state:ProfilePostsContainerType = InitialState, a
         case 'UPDATE-NEW-POST-TEXT': {
             return {...state, newPostText: action.newText}
         }
+        case 'SET-USER-PROFILE': {
+            return {...state, profile: action.profile}
+        }
         default: return state;
     }
 }
 
 export const addPostAC = () => ({type: 'ADD-POST'}) as const;
 export const updateNewPostTextAC = (text: string) => ({type: 'UPDATE-NEW-POST-TEXT', newText: text}) as const;
+export const setUserProfile = (profile:any) => ({type: 'SET-USER-PROFILE', profile}) as const;
