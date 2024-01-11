@@ -10,11 +10,12 @@ import {Error404} from "./components/Error404";
 import DialogsContainer from "./components/Content/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Content/Users/UsersContainer";
 import ProfileContainer from "./components/Content/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 const App = (): JSX.Element => {
     return (
         <div className="app-wrapper">
-            <Header/>
+            <HeaderContainer/>
             <Navbar/>
             <div className='app-content'>
                 <Routes>

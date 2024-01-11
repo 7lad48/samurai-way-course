@@ -1,6 +1,11 @@
 .header{
     grid-area: header;
     display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.logoWrapper{
+    display:flex;
     align-items: flex-start;
     gap: 10px;
 }
@@ -20,4 +25,12 @@
     color: #575757;
     font-size: 20px;
     align-self: center;
+}
+.loginBlock{
+
+}
+.loginBlock a{
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
 }
