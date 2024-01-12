@@ -3,6 +3,7 @@ import styles from "./Users.module.css";
 import noAvatar from "../../../assets/images/noavatar.png";
 import {UserType} from "../../../redux/usersReducer";
 import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 type UsersPropsTypes= {
     totalCount: number
@@ -19,6 +20,30 @@ export const Users: FC<UsersPropsTypes> = (props) => {
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
+    }
+    const unfollow = (userId: number) => {
+        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`,{
+            withCredentials: true,
+            headers: {
+                "API-KEY": "96f8c027-3df4-47cf-a502-72d0421d4916"
+            }
+        }).then(response => {
+            if(response.data.resultCode === 0){
+                props.unfollow(userId);
+            }
+        })
+    }
+    const follow = (userId: number) => {
+        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`,{},{
+            withCredentials: true,
+            headers: {
+                "API-KEY": "96f8c027-3df4-47cf-a502-72d0421d4916"
+            }
+        }).then(response => {
+            if(response.data.resultCode === 0){
+                props.follow(userId);
+            }
+        })
     }
     return <div className={styles.usersContainer}>
         <div>
@@ -41,12 +66,8 @@ export const Users: FC<UsersPropsTypes> = (props) => {
                     <div className={styles.userName}>{user.name}</div>
                 </div>
                 {user.followed
-                    ? <button onClick={() => {
-                        props.unfollow(user.id)
-                    }}>unfollow</button>
-                    : <button onClick={() => {
-                        props.follow(user.id)
-                    }}>follow</button>
+                    ? <button onClick={() => {unfollow(user.id)}}>unfollow</button>
+                    : <button onClick={() => {follow(user.id)}}>follow</button>
                 }
             </div>
             <div>
