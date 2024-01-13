@@ -4,6 +4,7 @@ import noAvatar from "../../../assets/images/noavatar.png";
 import {UserType} from "../../../redux/usersReducer";
 import {NavLink} from "react-router-dom";
 import axios from "axios";
+import {API} from "../../../api/api";
 
 type UsersPropsTypes= {
     totalCount: number
@@ -22,25 +23,17 @@ export const Users: FC<UsersPropsTypes> = (props) => {
         pages.push(i)
     }
     const unfollow = (userId: number) => {
-        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`,{
-            withCredentials: true,
-            headers: {
-                "API-KEY": "96f8c027-3df4-47cf-a502-72d0421d4916"
-            }
-        }).then(response => {
-            if(response.data.resultCode === 0){
+        API.unfollow(userId)
+            .then(data => {
+            if(data.resultCode === 0){
                 props.unfollow(userId);
             }
         })
     }
     const follow = (userId: number) => {
-        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`,{},{
-            withCredentials: true,
-            headers: {
-                "API-KEY": "96f8c027-3df4-47cf-a502-72d0421d4916"
-            }
-        }).then(response => {
-            if(response.data.resultCode === 0){
+        API.follow(userId)
+            .then(data => {
+            if(data.resultCode === 0){
                 props.follow(userId);
             }
         })
