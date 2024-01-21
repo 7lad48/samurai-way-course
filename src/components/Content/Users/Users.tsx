@@ -3,7 +3,6 @@ import styles from "./Users.module.css";
 import noAvatar from "../../../assets/images/noavatar.png";
 import {UserType} from "../../../redux/usersReducer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
 import {API} from "../../../api/api";
 
 type UsersPropsTypes= {
@@ -14,6 +13,8 @@ type UsersPropsTypes= {
     users: UserType[]
     unfollow: (userId: number) => void
     follow: (userId: number) => void
+    toggleIsFollowing: (isFollowing: boolean, userId: number) => void
+    isFollowing: number[]
 }
 
 export const Users: FC<UsersPropsTypes> = (props) => {
@@ -23,19 +24,23 @@ export const Users: FC<UsersPropsTypes> = (props) => {
         pages.push(i)
     }
     const unfollow = (userId: number) => {
+        props.toggleIsFollowing(true, userId);
         API.unfollow(userId)
             .then(data => {
             if(data.resultCode === 0){
                 props.unfollow(userId);
             }
+            props.toggleIsFollowing(false, userId);
         })
     }
     const follow = (userId: number) => {
+        props.toggleIsFollowing(true, userId);
         API.follow(userId)
             .then(data => {
             if(data.resultCode === 0){
                 props.follow(userId);
             }
+            props.toggleIsFollowing(false, userId);
         })
     }
     return <div className={styles.usersContainer}>
@@ -59,8 +64,8 @@ export const Users: FC<UsersPropsTypes> = (props) => {
                     <div className={styles.userName}>{user.name}</div>
                 </div>
                 {user.followed
-                    ? <button onClick={() => {unfollow(user.id)}}>unfollow</button>
-                    : <button onClick={() => {follow(user.id)}}>follow</button>
+                    ? <button disabled={props.isFollowing.some(id => user.id === id)} onClick={() => {unfollow(user.id)}}>unfollow</button>
+                    : <button disabled={props.isFollowing.some(id => user.id === id)} onClick={() => {follow(user.id)}}>follow</button>
                 }
             </div>
             <div>

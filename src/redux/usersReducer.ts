@@ -3,7 +3,8 @@ export type UsersActionsType = ReturnType<typeof follow>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof setCurrentPage>
-    | ReturnType<typeof toggleIsFetching>;
+    | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof toggleIsFollowing>;
 
 // export type UserType = {
 //     id: number
@@ -36,6 +37,7 @@ export type UsersContainerType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    isFollowing: number[]
 }
 
 const InitialState: UsersContainerType = {
@@ -43,7 +45,8 @@ const InitialState: UsersContainerType = {
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    isFollowing: []
 }
 
 export const usersReducer = (state:UsersContainerType = InitialState, action: UsersActionsType): UsersContainerType => {
@@ -67,6 +70,9 @@ export const usersReducer = (state:UsersContainerType = InitialState, action: Us
         case 'TOGGLE-IS-FETCHING': {
             return {...state, isFetching: action.isFetching};
         }
+        case 'TOGGLE-IS-FOLLOWING': {
+            return {...state, isFollowing: action.isFollowing ? [...state.isFollowing, action.userId] : state.isFollowing.filter(userId => userId !== action.userId)};
+        }
         default: return state;
     }
 }
@@ -77,3 +83,4 @@ export const setUsers = (users: UserType[]) => ({type: 'SET-USERS', users}) as c
 export const setCurrentPage = (page: number) => ({type: 'SET-CURRENT-PAGE', page}) as const;
 export const setTotalUsersCount = (totalUsersCount: number) => ({type: 'SET-TOTAL-USERS-COUNT', totalUsersCount}) as const;
 export const toggleIsFetching = (isFetching: boolean) => ({type: 'TOGGLE-IS-FETCHING', isFetching}) as const;
+export const toggleIsFollowing = (isFollowing: boolean, userId: number) => ({type: 'TOGGLE-IS-FOLLOWING', isFollowing, userId}) as const;

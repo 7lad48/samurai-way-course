@@ -5,7 +5,7 @@ import {
     follow,
     setCurrentPage,
     setTotalUsersCount,
-    setUsers, toggleIsFetching,
+    setUsers, toggleIsFetching, toggleIsFollowing,
     unfollow,
     UserType
 } from "../../../redux/usersReducer";
@@ -21,6 +21,7 @@ type mapStateToPropsType = {
     totalCount: number
     currentPage: number
     isFetching: boolean
+    isFollowing: number[]
 }
 type mapDispatchToPropsType = {
     follow: (userId: number) => void
@@ -29,6 +30,7 @@ type mapDispatchToPropsType = {
     setCurrentPage: (page: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void
     toggleIsFetching: (isFetching: boolean) => void
+    toggleIsFollowing: (isFollowing: boolean, userId: number) => void
 }
 type UsersPropsTypes = mapDispatchToPropsType & mapStateToPropsType;
 
@@ -65,6 +67,8 @@ class UsersAPIContainer extends React.Component<UsersPropsTypes> {
             users={this.props.users}
             unfollow={this.props.unfollow}
             follow={this.props.follow}
+            toggleIsFollowing={this.props.toggleIsFollowing}
+            isFollowing={this.props.isFollowing}
             />}
         </>
     }
@@ -76,7 +80,8 @@ const mapStateToProps = (state: RootStateType): mapStateToPropsType => {
         pageSize: state.users.pageSize,
         totalCount: state.users.totalUsersCount,
         currentPage: state.users.currentPage,
-        isFetching: state.users.isFetching
+        isFetching: state.users.isFetching,
+        isFollowing: state.users.isFollowing
     }
 }
 // const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
@@ -101,7 +106,7 @@ const mapStateToProps = (state: RootStateType): mapStateToPropsType => {
 //         },
 //     }
 // }
-const ActionCreators = {follow,unfollow,setUsers,setCurrentPage,setTotalUsersCount,toggleIsFetching}
+const ActionCreators = {follow,unfollow,setUsers,setCurrentPage,setTotalUsersCount,toggleIsFetching, toggleIsFollowing}
 const UsersContainer = connect(mapStateToProps, ActionCreators)(UsersAPIContainer)
 
 export default UsersContainer;
