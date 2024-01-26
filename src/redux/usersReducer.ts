@@ -1,3 +1,7 @@
+import {Dispatch} from "redux";
+import {RootStateType} from "./store";
+import {API} from "../api/api";
+
 export type UsersActionsType = ReturnType<typeof follow>
     | ReturnType<typeof unfollow>
     | ReturnType<typeof setUsers>
@@ -84,3 +88,33 @@ export const setCurrentPage = (page: number) => ({type: 'SET-CURRENT-PAGE', page
 export const setTotalUsersCount = (totalUsersCount: number) => ({type: 'SET-TOTAL-USERS-COUNT', totalUsersCount}) as const;
 export const toggleIsFetching = (isFetching: boolean) => ({type: 'TOGGLE-IS-FETCHING', isFetching}) as const;
 export const toggleIsFollowing = (isFollowing: boolean, userId: number) => ({type: 'TOGGLE-IS-FOLLOWING', isFollowing, userId}) as const;
+
+export const getUsersTC = (currentPage: number, pageSize: number) => (dispatch: Dispatch, getState: RootStateType) => {
+    dispatch(toggleIsFetching(true));
+    API.getUsers(currentPage, pageSize).then(data => {
+        dispatch(setUsers(data.items));
+        dispatch(setCurrentPage(currentPage));
+        dispatch(setTotalUsersCount(data.totalCount));
+        dispatch(toggleIsFetching(false));
+    })
+}
+export const followTC = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(toggleIsFollowing(true, userId));
+    API.follow(userId)
+        .then(data => {
+            if(data.resultCode === 0){
+                dispatch(follow(userId));
+            }
+            dispatch(toggleIsFollowing(false, userId));
+        })
+}
+export const unfollowTC = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(toggleIsFollowing(true, userId));
+    API.unfollow(userId)
+        .then(data => {
+            if(data.resultCode === 0){
+                dispatch(unfollow(userId));
+            }
+            dispatch(toggleIsFollowing(false, userId));
+        })
+}

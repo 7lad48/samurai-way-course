@@ -3,7 +3,6 @@ import styles from "./Users.module.css";
 import noAvatar from "../../../assets/images/noavatar.png";
 import {UserType} from "../../../redux/usersReducer";
 import {NavLink} from "react-router-dom";
-import {API} from "../../../api/api";
 
 type UsersPropsTypes= {
     totalCount: number
@@ -13,7 +12,6 @@ type UsersPropsTypes= {
     users: UserType[]
     unfollow: (userId: number) => void
     follow: (userId: number) => void
-    toggleIsFollowing: (isFollowing: boolean, userId: number) => void
     isFollowing: number[]
 }
 
@@ -24,24 +22,10 @@ export const Users: FC<UsersPropsTypes> = (props) => {
         pages.push(i)
     }
     const unfollow = (userId: number) => {
-        props.toggleIsFollowing(true, userId);
-        API.unfollow(userId)
-            .then(data => {
-            if(data.resultCode === 0){
-                props.unfollow(userId);
-            }
-            props.toggleIsFollowing(false, userId);
-        })
+        props.unfollow(userId);
     }
     const follow = (userId: number) => {
-        props.toggleIsFollowing(true, userId);
-        API.follow(userId)
-            .then(data => {
-            if(data.resultCode === 0){
-                props.follow(userId);
-            }
-            props.toggleIsFollowing(false, userId);
-        })
+        props.follow(userId);
     }
     return <div className={styles.usersContainer}>
         <div>

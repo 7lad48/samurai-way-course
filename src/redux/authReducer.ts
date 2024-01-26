@@ -4,6 +4,9 @@
 //     fieldsErrors: string[]
 //     resultCode: number
 // }
+import {Dispatch} from "redux";
+import {API} from "../api/api";
+
 type InitialStateType = {
     id: number | null
     login: string | null
@@ -30,3 +33,13 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
 }
 
 export const setAuthUserData = (userId: number, email: string, login: string) => ({type: 'SET-USER-DATA', data: {id: userId, email, login}}) as const
+
+export const authMeTC = () => (dispatch: Dispatch) => {
+    API.authMe()
+        .then(data => {
+            if(data.resultCode === 0){
+                let {login, id, email} = data.data
+                dispatch(setAuthUserData(id, email, login));
+            }
+        })
+}

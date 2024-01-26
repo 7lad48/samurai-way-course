@@ -1,4 +1,7 @@
 import {v1} from "uuid";
+import {Dispatch} from "redux";
+import axios from "axios";
+import {API} from "../api/api";
 
 export type profileReducerActionsType = ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostTextAC>
@@ -48,3 +51,11 @@ export const profileReducer = (state:ProfilePostsContainerType = InitialState, a
 export const addPostAC = () => ({type: 'ADD-POST'}) as const;
 export const updateNewPostTextAC = (text: string) => ({type: 'UPDATE-NEW-POST-TEXT', newText: text}) as const;
 export const setUserProfile = (profile:any) => ({type: 'SET-USER-PROFILE', profile}) as const;
+
+export const setUserProfileTC = (userId: string) => (dispatch: Dispatch) => {
+    if(!userId) userId = "2" // need fix later
+    API.getProfile(userId)
+        .then(data => {
+            dispatch(setUserProfile(data));
+        })
+}
