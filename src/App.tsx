@@ -11,6 +11,7 @@ import DialogsContainer from "./components/Content/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Content/Users/UsersContainer";
 import ProfileContainer from "./components/Content/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import {Login} from "./components/Login/Login";
 
 const App = (): JSX.Element => {
     return (
@@ -27,6 +28,7 @@ const App = (): JSX.Element => {
                     <Route path='/music' element={<Music/>}/>
                     <Route path='/users' element={<UsersContainer/>}/>
                     <Route path='/settings' element={<Settings/>}/>
+                    <Route path='/login' element={<Login/>}/>
                     <Route path='/*' element={<Error404/>}/>
                     {/*<Route path={'/dialogs/:id'} element={<Page pages={dataState.pages}/>}/>*/}
                 </Routes>

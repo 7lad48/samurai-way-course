@@ -8,3 +8,6 @@
     color:red;
     padding:10px;
 }
+.description img{
+    max-height: 250px;
+}

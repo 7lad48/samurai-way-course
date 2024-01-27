@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {setUserProfileTC} from "../../../redux/profileReducer";
 import {RootStateType} from "../../../redux/store";
 
-import { useLocation, useNavigate, useParams} from "react-router-dom";
+import {Navigate, useLocation, useNavigate, useParams} from "react-router-dom";
 // wrapper to use react-router's v6 hooks in class component(to use HOC pattern, like in router v5)
 function withRouter(Component:any) {
     function ComponentWithRouterProp(props:any) {
@@ -23,6 +23,7 @@ function withRouter(Component:any) {
 
 type mapStateToPropsType = {
     profile: any
+    isAuth: boolean
 }
 type mapDispatchToPropsType = {
     setUserProfileTC: (userId:string) => void
@@ -56,11 +57,13 @@ class ProfileContainer extends React.Component<CommonPropsTypes> {
         this.props.setUserProfileTC(this.props.router.params.userId)
     }
     render() {
+    if(!this.props.isAuth) return <Navigate to={'/login'}/>
     return <Profile {...this.props} profile={this.props.profile}/>
     }
 }
 const mapStateToProps = (state:RootStateType): mapStateToPropsType => ({
-    profile: state.profile.profile
+    profile: state.profile.profile,
+    isAuth: state.auth.isAuth
 })
 
 export default connect(mapStateToProps, {setUserProfileTC})(withRouter(ProfileContainer))

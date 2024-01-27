@@ -1,6 +1,5 @@
 import {v1} from "uuid";
 import {Dispatch} from "redux";
-import axios from "axios";
 import {API} from "../api/api";
 
 export type profileReducerActionsType = ReturnType<typeof addPostAC>

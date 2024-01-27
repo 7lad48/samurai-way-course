@@ -3,13 +3,14 @@ import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import styles from './Dialogs.module.css'
 import {DialogsPropsTypes} from "./DialogsContainer";
+import {Navigate} from "react-router-dom";
 
 
 const Dialogs: React.FC<DialogsPropsTypes> = ({
                                                   dialogsPage,
                                                   onChangeMessage,
                                                   onClickSendTypedMsg,
-
+                                                  isAuth
                                               }) => {
 
     const users = dialogsPage.dialogsUsersData.map(user => <DialogItem name={user.name} id={user.id} key={user.id}/>);
@@ -18,6 +19,7 @@ const Dialogs: React.FC<DialogsPropsTypes> = ({
     const onChangeTypedMessage = (e: ChangeEvent<HTMLTextAreaElement>) => {
         onChangeMessage(e.currentTarget.value);
     }
+    if(!isAuth) return <Navigate to={'/login'}/>
     return (
         <div className={styles.dialogs}>
             <div className={styles.dialogsItems}>{users}</div>
