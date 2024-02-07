@@ -10,6 +10,7 @@ import {
 import React from 'react';
 import {Users} from './Users';
 import {Preloader} from "../../common/Preloader/Preloader";
+import {WithAuthRedirect} from "../../../hoc/withAuthRedirect";
 
 type mapStateToPropsType = {
     users: UserType[]
@@ -107,4 +108,4 @@ const mapStateToProps = (state: RootStateType): mapStateToPropsType => {
 const ActionCreators = {setUsers,setCurrentPage,setTotalUsersCount,toggleIsFetching, toggleIsFollowing, getUsersTC, followTC, unfollowTC}
 const UsersContainer = connect(mapStateToProps, ActionCreators)(UsersAPIContainer)
 
-export default UsersContainer;
+export default WithAuthRedirect(UsersContainer);

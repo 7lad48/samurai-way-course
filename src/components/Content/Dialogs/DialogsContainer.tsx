@@ -2,6 +2,7 @@ import {DialogsPageContainerType, sendTypedDialogMsgAC, updateTypedDialogTextAC}
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {RootStateType} from "../../../redux/store";
+import {WithAuthRedirect} from "../../../hoc/withAuthRedirect";
 
 type mapStateToPropsType = {
     dialogsPage: DialogsPageContainerType
@@ -36,4 +37,4 @@ const actionCreators = {
 }
 const DialogsContainer = connect(mapStateToProps, actionCreators)(Dialogs)
 
-export default DialogsContainer;
+export default WithAuthRedirect(DialogsContainer)
