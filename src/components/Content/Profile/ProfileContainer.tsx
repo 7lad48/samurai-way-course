@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {setUserProfileTC} from "../../../redux/profileReducer";
@@ -6,6 +6,7 @@ import {RootStateType} from "../../../redux/store";
 
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {WithAuthRedirect} from "../../../hoc/withAuthRedirect";
+import {compose} from "redux";
 // wrapper to use react-router's v6 hooks in class component(to use HOC pattern, like in router v5)
 function withRouter(Component:any) {
     function ComponentWithRouterProp(props:any) {
@@ -65,4 +66,11 @@ const mapStateToProps = (state:RootStateType): mapStateToPropsType => ({
     profile: state.profile.profile,
     // isAuth: state.auth.isAuth
 })
-export default WithAuthRedirect(connect(mapStateToProps, {setUserProfileTC})(withRouter(ProfileContainer)))
+
+export default compose<ComponentType>(
+    connect(mapStateToProps, {setUserProfileTC}),
+    withRouter,
+    WithAuthRedirect
+)(ProfileContainer)
+
+//WithAuthRedirect(connect(mapStateToProps, {setUserProfileTC})(withRouter(ProfileContainer)))
