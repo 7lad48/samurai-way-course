@@ -70,7 +70,7 @@ const mapStateToProps = (state:RootStateType): mapStateToPropsType => ({
 export default compose<ComponentType>(
     connect(mapStateToProps, {setUserProfileTC}),
     withRouter,
-    WithAuthRedirect
+    // WithAuthRedirect
 )(ProfileContainer)
 
 //WithAuthRedirect(connect(mapStateToProps, {setUserProfileTC})(withRouter(ProfileContainer)))
